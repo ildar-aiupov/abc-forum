@@ -136,7 +136,7 @@ class Command(BaseCommand):
         get_user_model().objects.create_user(
             username="admin",
             password="admin",
-            is_staff=True,
+            is_superuser=True,
             utc_offset=UtcOffset.objects.first(),
             )
         return "Superusercreated!\n"
