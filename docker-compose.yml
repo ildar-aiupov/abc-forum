@@ -1,0 +1,40 @@
+version: '3'
+
+volumes:
+  pg_data:
+  static:
+  media:
+
+services:
+
+  db:
+    image: postgres:13
+    env_file: .env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "${DB_NAME}", "-U", "${POSTGRES_USER}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5  
+      
+  backend:
+    build: ./forum/
+    env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - static:/backend_static
+      - media:/app/media
+
+  nginx:
+    build: ./nginx/
+    env_file: .env
+    ports:
+      - 8001:80
+    volumes:
+      - static:/static
+      - media:/media
+    depends_on:
+      - backend

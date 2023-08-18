@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Сейчас на форуме{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mx-0">
+    <div class="col-5 p-5">
+		<div class="card">
+			<div class="card-header text-center">
+				Сейчас на форуме:
+			</div>
+			<div class="card-body">
+				{% for active_user in active_users %}
+					<a href="{% url 'main:user_profile' active_user.id %}">
+						{{ active_user.username }}
+					</a>
+					{% if not forloop.last %}
+						,&nbsp;
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>		
+{% endblock %}

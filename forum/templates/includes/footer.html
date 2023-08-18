@@ -1,0 +1,28 @@
+{% load static %}
+{% load thumbnail %}
+
+<my_nav>
+  {% with request.resolver_match.view_name as view_name %}
+    <div class="row fixed-bottom p-3 border-top border-white" >
+      <div class="col-10">
+        {% for name, url in tree.items %}
+          <a href="{{ url }}" 
+          {% if forloop.last %}style='color:white;'{% endif %}
+          class="text-decoration-none">
+            {{ name|truncatechars:60 }}
+          </a>
+          &nbsp;
+          {% if not forloop.last %}>{% endif %}
+        {% endfor %}
+      </div>
+      <div class="col-2">
+        <div class='d-flex justify-content-end'>
+          <a href="{% url 'main:about_author' %}"
+          {% if view_name  == 'main:about_author' %}style="color:white;"{% endif %}>
+            Автор проекта
+          </a>
+        </div>
+      </div>
+    </div>
+  {% endwith %}
+</my_nav>

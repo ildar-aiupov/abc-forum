@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% load user_filters %}
+
+{% block content %}
+<div class="row justify-content-center mx-0">
+    <div class="col-12 p-3">
+		<div class="card">
+			<div class="card-header text-center">
+				Список сообщений (тема "{{ topic.name }}")
+			</div>
+			<div class="card-body">
+	
+				<!-- Верхний пагинатор -->
+				<div class="col-12">	
+					<div class="d-flex justify-content-end">
+						{% include 'includes/paginator.html' %}
+					</div>
+				</div>
+
+				<!-- Список сообщений -->
+				<ul class="list-group pb-3">
+					{% for post in page_obj %}
+						<ul class="list-group">
+							<li class="list-group-item grey">
+								<div class="col-12">
+									{% to_local post.pub_date as local %}
+									{{ local|date:'d.m.Y H:i' }}
+								</div>
+							</li>
+							<ul class="list-group list-group-horizontal">
+								<li class="list-group-item col-2 grey rounded-top-0">
+									<div class="d-flex justify-content-between">
+										<div>
+											<a href="{% url 'main:user_profile' post.author.id %}">
+												<b>{{ post.author.username }}</b>
+											</a>
+										</div>
+										<div>
+											{% if post.author.is_online %}
+												✅
+												{% comment %} {% thumbnail 'online_picture.png' "25x25" as im %}
+													<img src="{{ im.url }}">
+												{% endthumbnail %}<br> {% endcomment %}
+											{% endif %}
+										</div>
+									</div>
+									{% thumbnail post.author.image "100x100" crop="center" upscale=True as im %}
+										<img src="{{ im.url }}">
+									{% endthumbnail %}<br>
+									Сообщений: {{ post.author.post_count }}<br>
+									{% to_local post.author.date_joined as local %}
+									Регистрация: {{ local|date:'d.m.Y H:i' }}<br>
+								</li>
+								<li class="list-group-item col-10 light-grey rounded-top-0">
+									<div class="col-12">
+										{{ post.content|safe }}<br>
+										<a href="/media/{{ post.image }}" target="_ blank">
+											{% thumbnail post.image "300x300" upscale=True as im %}
+												<img src="{{ im.url }}">
+											{% endthumbnail %}
+										</a>
+									</div>
+									<br>
+									<div class="col-12 fs-6" style='position:absolute; bottom:8px; right:16px;'>
+										<div class="d-flex align-items-end flex-column">
+											<a href="javascript: void(0);"
+											onclick="get_selected_text('{{ post.author.username }}', '{{ post.pub_date|date:'d.m.Y H:i' }}');">
+												Цитировать выделенное
+											</a>		
+										</div>
+									</div>
+									
+								</li>
+							</ul>
+						</ul>
+					{% endfor %}
+				</ul>
+				
+				<!-- Заголовок формы создания нового сообщения и нижний пагинатор -->
+				<div class="d-flex justify-content-between">
+					<div class="pt-2">
+						{% if page_obj.number == page_obj.paginator.num_pages %}
+							Создать новое сообщение:
+						{% else %}
+							Создание новых сообщений возможно в конце темы
+						{% endif %}
+					</div>
+					<div>
+						{% include 'includes/paginator.html' %}
+					</div>
+				</div>
+
+				<!-- Форма создания нового сообщения -->
+				{% if page_obj.number == page_obj.paginator.num_pages %}
+					<div class="card card-body light-grey">
+						<form method="post" action="" enctype="multipart/form-data">
+							{% csrf_token %}
+							{% for field in form %}
+								{{ field.label_tag }}<br>
+								{{ field|addclass:'form-control' }}<br>
+								{{ field.errors }}
+							{% endfor %}
+							<br>
+							<button type="submit" 
+							class="btn btn-secondary border-light {% if not request.user.is_authenticated %}disabled{% endif %}" 
+							style="background:#DFDFDF; color:black" 
+							role="button" 
+							aria-expanded="false">
+								Создать сообщение
+							</button>
+							&nbsp;&nbsp;
+							<div class = 'smile' my-data-smile = '&#128512;'>&#128512;</div>
+							<div class = 'smile' my-data-smile = '&#128513;'>&#128513;</div>
+							<div class = 'smile' my-data-smile = '&#128578;'>&#128578;</div>
+							<div class = 'smile' my-data-smile = '&#128579;'>&#128579;</div>
+							<div class = 'smile' my-data-smile = '&#128522;'>&#128522;</div>
+							<div class = 'smile' my-data-smile = '&#128525;'>&#128525;</div>
+							<div class = 'smile' my-data-smile = '&#128523;'>&#128523;</div>
+							<div class = 'smile' my-data-smile = '&#129296;'>&#129296;</div>
+							<div class = 'smile' my-data-smile = '&#129320;'>&#129320;</div>
+							<div class = 'smile' my-data-smile = '&#128528;'>&#128528;</div>
+							<div class = 'smile' my-data-smile = '&#128580;'>&#128580;</div>
+							<div class = 'smile' my-data-smile = '&#128556;'>&#128556;</div>
+							<div class = 'smile' my-data-smile = '&#128532;'>&#128532;</div>
+							<div class = 'smile' my-data-smile = '&#128564;'>&#128564;</div>
+							<div class = 'smile' my-data-smile = '&#128526;'>&#128526;</div>
+							<div class = 'smile' my-data-smile = '&#128577;'>&#128577;</div>
+							<div class = 'smile' my-data-smile = '&#128558;'>&#128558;</div>
+							<div class = 'smile' my-data-smile = '&#128547;'>&#128547;</div>
+							<div class = 'smile' my-data-smile = '&#128545;'>&#128545;</div>
+						</form>
+					</div>
+				{% endif %}
+				
+				<script>
+					<!-- Скрипт цитирования -->
+					function get_selected_text(from, pub_date) {
+						var  message = document.getElementById("message");
+						if (window.getSelection()) {
+							var select = window.getSelection();
+							message.value += '<quote>Цитата из сообщения ' + from + ', ' + pub_date + ':<start_text>' + select.toString() + '</quote>';
+						}
+					}
+					<!-- Скрипт вставки смайликов -->
+					window.addEventListener('click', function(event){
+						if (event.target.classList.contains('smile'))
+						{
+						let edit = document.querySelector('#message');
+						edit.value += event.target.attributes['my-data-smile'].value;
+						}
+					});
+				</script>
+
+			</div>
+		</div>
+	</div>
+</div>	
+{% endblock %}

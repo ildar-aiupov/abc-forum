@@ -1,0 +1,54 @@
+{% load static %}
+<my_nav>
+  {% with request.resolver_match.view_name as view_name %}
+    <div class="row fixed-top p-3 border-bottom border-white">
+      <div class="col-12">
+        {% if request.user.is_authenticated %}
+          Вход: {{ request.user.username }}
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <a href="{% url 'users:password_change' %}"
+          {% if view_name  == 'users:password_change' %}style="color:white;"{% endif %}>
+            Изменить пароль
+          </a>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <a href="{% url 'users:logout' %}">Выйти</a>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {% else %}
+          <a href="{% url 'users:login' %}"
+          {% if view_name  == 'users:login' %}style="color:white;"{% endif %}>
+            Войти
+          </a>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <a href="{% url 'users:signup' %}"
+          {% if view_name  == 'users:signup' %}style="color:white;"{% endif %}>
+            Регистрация
+          </a>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {% endif %}
+        <a href="{% url 'main:today_posts' %}"
+        {% if view_name  == 'main:today_posts' %}style="color:white;"{% endif %}>
+          Сообщения за день
+        </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="{% url 'main:active_users' %}"
+        {% if view_name  == 'main:active_users' %}style="color:white;"{% endif %}>
+          Кто сейчас на сайте
+        </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="{% url 'main:rules' %}"
+        {% if view_name  == 'main:rules' %}style="color:white;"{% endif %}>
+          Правила форума
+        </a>
+      </div>
+    </div>
+  {% endwith %}
+</my_nav>
+
+<div>
+  <img src="{% static 'img/header_picture_brown.jpg' %}"  width="100%" height="250px">
+  <div style="position:absolute; top:60px; left:24px; color:black;" id="site_title">
+    <a href="{% url 'main:index' %}">
+      <h1>Конференция</h1>
+    </a>
+  </div>
+</div>

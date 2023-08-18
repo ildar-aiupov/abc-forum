@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center mx-0">
+    <div class="col-12 p-3">
+		<div class="card">
+			<div class="card-header text-center">
+				Список тем, содержащих сообщения за сегодня
+			</div>
+			<div class="card-body">
+				{% if not page_obj %}
+					<div class="text-center">
+						Сегодня новых сообщений не было
+					</div>
+				{% else %}
+					<ul class="list-group">
+
+						<ul class="list-group list-group-horizontal">
+							<li class="list-group-item col-3 grey">
+								Форум
+							</li>
+							<li class="list-group-item col-5 grey">
+								Тема / автор темы
+							</li>
+							<li class="list-group-item col-2 grey">
+								Последнее сообщение
+							</li>
+							<li class="list-group-item col-1 grey">
+								Сообщений
+							</li>
+							<li class="list-group-item col-1 grey">
+								Просмотров
+							</li>
+						</ul>
+
+						{% for topic in page_obj %}
+							<ul class="list-group list-group-horizontal">
+								<li class="list-group-item col-3 border-white grey">
+									<a href="{% url 'main:index' %}">
+										{{ topic.group.name }}<br>
+									</a>
+								</li>
+								<li class="list-group-item col-5 border-white light-grey">
+									<a href="{% url 'main:topic_view' topic.id %}">
+										{{ topic.name }}<br>
+										{{ topic.author.username }}
+									</a>
+								</li>
+								<li class="list-group-item col-2 border-white grey">
+									{{ topic.Post.last.author.username }}<br>
+									{{ topic.Post.last.pub_date|date:'d.m.Y H:i' }}
+								</li>
+								<li class="list-group-item col-1 border-white light-grey">
+									{{ topic.Post.count }}
+								</li>
+								<li class="list-group-item col-1 border-white grey">
+									{{ topic.views_count }}
+								</li>
+							</ul>
+						{% endfor %}
+					</ul>
+					<br>
+					
+					<!-- Пагинатор -->
+					<div class="row">
+						<div class="col-6">
+						</div>
+						<div class="col-6">
+							<div class='d-flex justify-content-end'>
+								{% include 'includes/paginator.html' %}
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>	
+{% endblock %}

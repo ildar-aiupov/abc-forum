@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load user_filters %}
+
+{% block content %}
+<div class="row justify-content-center mx-0">
+  <div class="col-12 p-3">
+		<div class="card">
+			<div class="card-header text-center">
+				Список тем (группа "{{ group.name }}")
+			</div>
+			<div class="card-body">
+
+				<!-- Верхний пагинатор -->
+				<div class="col-12">	
+					<div class="d-flex justify-content-end">
+						{% include 'includes/paginator.html' %}
+					</div>
+				</div>
+				
+				<!-- Список тем -->
+				<ul class="list-group">
+					<ul class="list-group list-group-horizontal">
+						<li class="list-group-item col-6 grey rounded-0">
+							Темы: название / автор / 
+							<a href="
+							{% if order_method == 'order_topic_later' %}
+								{% url 'main:group_view' group.id 'order_topic_earlier' %}
+							{% else %}
+								{% url 'main:group_view' group.id 'order_topic_later' %}
+							{% endif %}
+							">
+								дата создания ↑↓
+							</a>
+						</li>
+						
+						<li class="list-group-item col-4 grey">
+							<a href="
+							{% if order_method == 'order_last_post_later' %}
+								{% url 'main:group_view' group.id 'order_last_post_earlier' %}
+							{% else %}
+								{% url 'main:group_view' group.id 'order_last_post_later' %}
+							{% endif %}
+							">
+								Последнее сообщение ↑↓
+							</a>
+						</li>
+						
+						<li class="list-group-item col-1 grey text-center">
+							<a href="
+							{% if order_method == 'order_posts_more' %}
+								{% url 'main:group_view' group.id 'order_posts_less' %}
+							{% else %}
+								{% url 'main:group_view' group.id 'order_posts_more' %}
+							{% endif %}
+							">
+								Сообщений ↑↓
+							</a>
+						</li>
+
+						<li class="list-group-item col-1 grey text-center rounded-0">
+							<a href="
+							{% if order_method == 'order_views_more' %}
+								{% url 'main:group_view' group.id 'order_views_less' %}
+							{% else %}
+								{% url 'main:group_view' group.id 'order_views_more' %}
+							{% endif %}
+							">
+								Просмотров ↑↓
+							</a>
+						</li>
+					</ul>
+
+					{% for topic in page_obj %}
+						<ul class="list-group list-group-horizontal">
+							<li class="list-group-item col-6 border-white light-grey rounded-0">
+								<a href="{% url 'main:topic_view' topic.id %}">
+									{{ topic.name }}<br>
+									<div class="fs-6">
+										{{ topic.author.username }},
+										{{ topic.pub_date|date:'d.m.Y H:i' }}
+									</div>
+								</a>
+							</li>
+							<li class="list-group-item col-4 border-white grey">
+								<a href="{{ topic|last_post_in_topic:'url' }}">
+									{{ topic.Post.last.author.username }}
+									{{ topic.Post.last.pub_date|date:'d.m.Y H:i' }}
+								</a>
+							</li>
+							<li class="list-group-item col-1 border-white light-grey text-center">
+								{{ topic.Post.count }}
+							</li>
+							<li class="list-group-item col-1 border-white grey text-center rounded-0">
+								{{ topic.views_count }}
+							</li>
+						</ul>
+					{% endfor %}
+				</ul>
+				
+				<br>
+					
+				<!-- Заголовок формы создания новой темы и нижний пагинатор -->
+				<div class="d-flex justify-content-between">
+					<div class="pt-2">
+						Создать новую тему:
+					</div>
+					<div>
+						{% include 'includes/paginator.html' %}
+					</div>
+				</div>
+
+				<!-- Форма создания новой темы -->
+				<div class="card card-body light-grey">
+					<form method="post" action="" enctype="multipart/form-data">
+						{% csrf_token %}
+						{% for field in form %}
+							{{ field.label_tag }}<br>
+							{{ field|addclass:'form-control' }}<br>
+							{{ field.errors }}
+						{% endfor %}
+						<br>
+						<button type="submit" 
+						class="btn btn-secondary border-light {% if not request.user.is_authenticated %}disabled{% endif %}" 
+						style="background:#DFDFDF; color:black" 
+						role="button" 
+						aria-expanded="false">
+							Создать тему
+						</button>
+						&nbsp;&nbsp;
+						<div class = 'smile' my-data-smile = '&#128512;'>&#128512;</div>
+						<div class = 'smile' my-data-smile = '&#128513;'>&#128513;</div>
+						<div class = 'smile' my-data-smile = '&#128578;'>&#128578;</div>
+						<div class = 'smile' my-data-smile = '&#128579;'>&#128579;</div>
+						<div class = 'smile' my-data-smile = '&#128522;'>&#128522;</div>
+						<div class = 'smile' my-data-smile = '&#128525;'>&#128525;</div>
+						<div class = 'smile' my-data-smile = '&#128523;'>&#128523;</div>
+						<div class = 'smile' my-data-smile = '&#129296;'>&#129296;</div>
+						<div class = 'smile' my-data-smile = '&#129320;'>&#129320;</div>
+						<div class = 'smile' my-data-smile = '&#128528;'>&#128528;</div>
+						<div class = 'smile' my-data-smile = '&#128580;'>&#128580;</div>
+						<div class = 'smile' my-data-smile = '&#128556;'>&#128556;</div>
+						<div class = 'smile' my-data-smile = '&#128532;'>&#128532;</div>
+						<div class = 'smile' my-data-smile = '&#128564;'>&#128564;</div>
+						<div class = 'smile' my-data-smile = '&#128526;'>&#128526;</div>
+						<div class = 'smile' my-data-smile = '&#128577;'>&#128577;</div>
+						<div class = 'smile' my-data-smile = '&#128558;'>&#128558;</div>
+						<div class = 'smile' my-data-smile = '&#128547;'>&#128547;</div>
+						<div class = 'smile' my-data-smile = '&#128545;'>&#128545;</div>
+					</form>
+				</div>		
+				<br>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	<!-- Скрипт вставки смайликов -->
+	window.addEventListener('click', function(event){
+		if (event.target.classList.contains('smile'))
+		{
+		  let edit = document.querySelector('#message');
+		  edit.value += event.target.attributes['my-data-smile'].value;
+		}
+	  });
+</script>
+
+{% endblock %}

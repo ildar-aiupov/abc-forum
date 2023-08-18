@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load user_filters %}
+
+{% block title %}Профиль пользователя{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mx-0">
+  <div class="col-5 p-5">
+		<div class="card">
+			<div class="card-header text-center">
+				Профиль пользователя {{ user.username }}
+			</div>
+			<div class="card-body">
+				<div class="row">
+					<div class="col-8">
+						Логин: {{ user.username }}<br>
+						{% if user.is_online %}
+							Пользователь сейчас онлайн<br>
+						{% endif %}
+						<br>
+						Сообщений: {{ user.post_count }}<br>
+						{% to_local user.date_joined as local %}
+						Регистрация: {{ local|date:'d.m.Y H:i' }}<br>
+						Часовой пояс: МСК+{{ user.utc_offset.offset|add:"-3" }}<br> 
+					</div>
+					<div class="col-4">
+						<div style="position:absolute; right:16px; top:53px;">
+							{% thumbnail user.image "100x100" crop="center" upscale=True as im %}
+								<img src="{{ im.url }}">
+							{% endthumbnail %}<br>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>		
+{% endblock %}
