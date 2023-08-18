@@ -17,6 +17,7 @@ class Command(BaseCommand):
         self.create_biggroups_and_groups()
         self.create_topics()
         self.create_posts()
+        self.create_superuser()
         return "Example data base is done!"
 
     def create_utcoffsets(self):
@@ -130,3 +131,12 @@ class Command(BaseCommand):
                 i += 1
                 print(f"Post {i} created")
         return "All posts created!\n"
+
+    def create_superuser(self):
+        get_user_model().objects.create_user(
+            username="admin",
+            password="admin",
+            is_staff=True,
+            utc_offset=UtcOffset.objects.first(),
+            )
+        return "Superusercreated!\n"
