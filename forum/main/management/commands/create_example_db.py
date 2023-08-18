@@ -137,6 +137,7 @@ class Command(BaseCommand):
             username="admin",
             password="admin",
             is_superuser=True,
+            is_staff=True,
             utc_offset=UtcOffset.objects.first(),
             )
         return "Superusercreated!\n"
