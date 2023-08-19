@@ -39,6 +39,11 @@
         {% if view_name  == 'main:rules' %}style="color:white;"{% endif %}>
           Правила форума
         </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="{% url 'main:about_author' %}"
+          {% if view_name  == 'main:about_author' %}style="color:white;"{% endif %}>
+            О проекте
+        </a>
       </div>
     </div>
   {% endwith %}
