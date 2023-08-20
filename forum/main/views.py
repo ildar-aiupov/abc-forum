@@ -192,14 +192,14 @@ def rules(request):
     return render(request, "rules.html", context)
 
 
-def custom_handler404(request):
+def custom_handler404(request, exception):
     context = {
         "tree": get_tree(dontclear=True),
     }
     return render(request, "custom_handler404.html", context)
 
 
-def custom_handler500(request):
+def custom_handler500(request, *args, **kwargs):
     context = {
         "tree": get_tree(dontclear=True),
     }
