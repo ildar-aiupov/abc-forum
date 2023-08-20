@@ -129,7 +129,6 @@ def topic_view(request, topic_id):
         request.user.save()
         # вернуться на страницу, вызвавшую этот метод
         return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
-        # return redirect("main:topic_view", topic.id)
     context = {
         "tree": get_tree(topic=topic),
         "topic": topic,

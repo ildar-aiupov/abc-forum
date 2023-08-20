@@ -52,7 +52,6 @@ def last_post_in_group(group, arg):
 def last_post_in_topic(topic, arg):
     if arg == "url":
         len = topic.Post.count()
-        # len = Post.objects.filter(topic=last_post.topic).count()
         page_number = len // settings.POSTS_PER_PAGE + 1
         return (
             reverse(
@@ -64,14 +63,6 @@ def last_post_in_topic(topic, arg):
             + "?page="
             + str(page_number)
         )
-
-
-# @register.filter
-# def is_online(last_activity):
-#     if timezone.now()-last_activity < timezone.timedelta(minutes=2):
-#         return "онлайн"
-#     else:
-#         return ""
 
 
 @register.simple_tag(takes_context=True)

@@ -58,13 +58,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "forum.wsgi.application"
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -103,7 +96,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGIN_URL = "users:login"
 LOGIN_REDIRECT_URL = "main:index"
-# LOGOUT_REDIRECT_URL = 'main:index'
 
 # настройки электронной почты для сброса пароля
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -134,4 +126,5 @@ POSTS_PER_PAGE = 10
 TOPICS_LIMIT_IN_GROUP = 25
 POSTS_LIMIT_IN_TOPIC = 18
 
+# необходимо задать при SSL
 CSRF_TRUSTED_ORIGINS = ['https://abc-forum.didns.ru']

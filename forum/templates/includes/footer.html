@@ -15,14 +15,6 @@
           {% if not forloop.last %}>{% endif %}
         {% endfor %}
       </div>
-      {% comment %} <div class="col-2">
-        <div class='d-flex justify-content-end'>
-          <a href="{% url 'main:about_author' %}"
-          {% if view_name  == 'main:about_author' %}style="color:white;"{% endif %}>
-            Автор проекта
-          </a>
-        </div>
-      </div> {% endcomment %}
     </div>
   {% endwith %}
 </my_nav>

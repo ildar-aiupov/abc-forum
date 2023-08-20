@@ -66,10 +66,7 @@ jobs:
         target: "abc-forum"
     - name: Executing remote ssh commands to deploy
       uses: appleboy/ssh-action@master
-      # env:
-      #  SECRET_KEY: ${{ secrets.SECRET_KEY }}
       with:
-        #  envs: SECRET_KEY
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_KEY }}

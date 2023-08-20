@@ -6,9 +6,6 @@ User = get_user_model()
 
 class BigGroup(models.Model):
     name = models.CharField(max_length=200, verbose_name="Название")
-    # author = models.ForeignKey(
-    #     User, related_name="BigGroup", on_delete=models.CASCADE, verbose_name="Автор"
-    # )
     pub_date = models.DateTimeField(
         auto_now_add=True, verbose_name="Дата опубликования"
     )
@@ -23,12 +20,6 @@ class Group(models.Model):
         verbose_name="Большая группа",
     )
     name = models.CharField(max_length=200, verbose_name="Название")
-    # descr = models.CharField(
-    #     max_length=200, default="", blank=True, verbose_name="Описание"
-    # )
-    # author = models.ForeignKey(
-    #     User, related_name="Group", on_delete=models.CASCADE, verbose_name="Автор"
-    # )
     pub_date = models.DateTimeField(
         auto_now_add=True, verbose_name="Дата опубликования"
     )

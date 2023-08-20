@@ -40,7 +40,6 @@ class Command(BaseCommand):
                 break
             get_user_model().objects.create_user(
                 username=usernames[index % (len(usernames) - 1)],
-                # username=f"user{index}",
                 password=usernames[index % (len(usernames) - 1)],
                 image=SimpleUploadedFile("example_user_avatar.jpg", image_bytes),
                 utc_offset=UtcOffset.objects.first(),
