@@ -190,3 +190,17 @@ def rules(request):
         "tree": get_tree(dontclear=True),
     }
     return render(request, "rules.html", context)
+
+
+def custom_handler404(request):
+    context = {
+        "tree": get_tree(dontclear=True),
+    }
+    return render(request, "custom_handler404.html", context)
+
+
+def custom_handler500(request):
+    context = {
+        "tree": get_tree(dontclear=True),
+    }
+    return render(request, "custom_handler500.html", context)
