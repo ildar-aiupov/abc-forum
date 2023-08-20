@@ -128,7 +128,3 @@ POSTS_LIMIT_IN_TOPIC = 18
 
 # необходимо задать при SSL
 CSRF_TRUSTED_ORIGINS = ['https://abc-forum.didns.ru']
-
-# хэндлеры для основных видов ошибок
-handler404 = 'main.views.custom_handler404'
-handler500 = 'main.views.custom_handler500'
