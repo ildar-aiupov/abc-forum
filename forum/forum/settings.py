@@ -107,7 +107,7 @@ LOGIN_REDIRECT_URL = "main:index"
 
 # настройки электронной почты для сброса пароля
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-DEFAULT_FROM_EMAIL = "default from email"
+DEFAULT_FROM_EMAIL = "Password reset"
 EMAIL_HOST = os.getenv("EMAIL_HOST")
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")

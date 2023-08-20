@@ -165,7 +165,7 @@ def user_profile(request, user_id):
     user = User.objects.get(id=user_id)
     context = {
         "user": user,
-        "tree": get_tree(),
+        "tree": get_tree(dontclear=True),
     }
     return render(request, "user_profile.html", context)
 
