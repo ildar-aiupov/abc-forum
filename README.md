@@ -58,7 +58,7 @@ sudo docker compose up -d
 ```
 Главная страница проекта: http://localhost:8001/
 
-Админ-панель: http://localhost:8000/admin/
+Админ-панель: http://localhost:8001/admin/
 ```
 
 - Для остановки контейнеров Docker:

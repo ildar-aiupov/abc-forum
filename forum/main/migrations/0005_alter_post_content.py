@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('main', '0004_remove_biggroup_descr_alter_group_descr_and_more'),
+        ("main", "0004_remove_biggroup_descr_alter_group_descr_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='post',
-            name='content',
-            field=models.TextField(default='', verbose_name='Текст сообщения'),
+            model_name="post",
+            name="content",
+            field=models.TextField(default="", verbose_name="Текст сообщения"),
         ),
     ]
