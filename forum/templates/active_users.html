@@ -9,7 +9,7 @@
 			<div class="card-header text-center">
 				Сейчас на форуме:
 			</div>
-			<div class="card-body">
+			<div class="card-body text-center">
 				{% for active_user in active_users %}
 					<a href="{% url 'main:user_profile' active_user.id %}">
 						{{ active_user.username }}
